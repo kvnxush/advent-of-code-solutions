@@ -1,12 +1,12 @@
 const { answer, parseInput } = require('../utils');
 const input = parseInput('day1');
 
-const getSortedIds = (values) => {
-  const [leftIds, rightIds] = values.reduce(
+const getSortedIds = (ids) => {
+  const [leftIds, rightIds] = ids.reduce(
     (acc, ids) => {
-      const [left, right] = ids.split('   ');
-      acc[0].push(Number(left));
-      acc[1].push(Number(right));
+      const [left, right] = ids.split('   ').map(Number);
+      acc[0].push(left);
+      acc[1].push(right);
       return acc;
     },
     [[], []],
@@ -18,19 +18,19 @@ const getSortedIds = (values) => {
   return [leftIds, rightIds];
 };
 
-function answer1(values) {
-  const [leftIds, rightIds] = getSortedIds(values);
+function answer1(ids) {
+  const [leftIds, rightIds] = getSortedIds(ids);
 
   let totalDistance = 0;
-  for (let i = 0; i < values.length; i++) {
+  for (let i = 0; i < ids.length; i++) {
     totalDistance += Math.abs(leftIds[i] - rightIds[i]);
   }
 
   return totalDistance;
 }
 
-function answer2(values) {
-  const [leftIds, rightIds] = getSortedIds(values);
+function answer2(ids) {
+  const [leftIds, rightIds] = getSortedIds(ids);
   const rightIdFrequency = rightIds.reduce((acc, id) => {
     acc[id] = acc[id] ? acc[id] + 1 : 1;
     return acc;
